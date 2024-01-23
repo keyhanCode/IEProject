@@ -230,9 +230,9 @@ body > main > div > div a {
 .card:hover {
   box-shadow: 0px 0px 0.2px rgb(39, 176, 255),
     0px 0px 0.4px rgba(2, 119, 189 0.022), 0px 0px 0.9px rgb(53, 181, 255),
-    0px 0px 1.8px rgba(50, 180, 255, 0.664), 0px 0px 5pxrgb(78, 190, 255));
+    0px 0px 1.8px rgba(50, 180, 255, 0.664);
 }
-rgb(2, 120, 189) .card__img {
+.card__img {
   overflow: hidden;
   border-radius: 1.5rem;
   -webkit-border-radius: 1.5rem;
@@ -305,18 +305,18 @@ rgb(2, 120, 189) .card__img {
   text-align: center;
   margin-bottom: 3rem;
 }
-i{
-  color:#9fb3bd !important;
+i {
+  color: #9fb3bd !important;
 }
 .title {
   font-size: 5rem;
   font-weight: 900;
   color: #66b0f4;
 }
-body > main > div.main__content--caption > div.content__caption--left{
+body > main > div.main__content--caption > div.content__caption--left {
   border-radius: 50px;
 }
-body > main > div.main__content--caption > div.content__caption--right > p{
+body > main > div.main__content--caption > div.content__caption--right > p {
   color: #607d8b;
   margin-left: 50px;
 }
