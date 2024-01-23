@@ -1,10 +1,10 @@
-## **موضوع پروژه**
+# **موضوع پروژه**
 
 پیاده سازی وبلاگ (قابلیت عضویت و اشتراک‌گذاری)
 
 برنامه‌نویس : سجادزارع‌پور
 
-## **شرح برنامه** **:**
+# **شرح برنامه** **:**
 
 یک وب سایت پایه (بر پایه معماری MVC (با احراز هویت کاربر با استفاده از Google OAuth2. که اجزای زیر تشکیل شده است:
 
@@ -50,35 +50,35 @@
     
     from models import\*
 
-**ماژول**  **json**
+## **ماژول** **json**
 
 توابعی را برای کار با داده های JSON فراهم می کند، که یک فرمت رایج برای ذخیره و تبادل داده های ساختاریافته است. این به برنامه اجازه می دهد تا داده های فرمت JSON را مانند پروفایل های کاربر یا موارد محتوا دستکاری و پردازش کند.
 
-**کتابخانه**  **flask**
+## **کتابخانه** **flask**
 
 پایه و اساس ایجاد برنامه های وب باPython است. این توابعی را برای مسیریابی درخواست ها، رندر قالب ها، مدیریت وضعیت برنامه و اتصال به پایگاه داده ها فراهم می کند.
 
-**افزونه login flask**
+## **افزونه login flask**
 
 Flaskرا با Flask-Login، یک چارچوب برای مدیریت احراز هویت کاربر و جلسات ادغام می کند. این مدیریت ورود کاربر، خروج و جلسات را در برنامه ساده می کند.
 
-**کلاس**  **WebApplicationClient**
+## **کلاس** **WebApplicationClient**
 
 از کتابخانه oauthlib برای تعامل با ارائه دهندگانOAuth2 مانندGoogle استفاده می شود. این دریافت توکن های مجوز برای احراز هویت کاربر و دسترسی به منابع محافظت شده را تسهیل می کند.
 
-**کتابخانه**  **requests**
+## **کتابخانه** **requests**
 
 درخواست هایHTTP را بهAPI های خارجی یا خدمات ارسال می کند. این ارسال و دریافت داده از سرورهای راه دور را ساده می کند که برای تعامل با ارائه دهندگانOAuth2 یا دسترسی به محتوا از منابع خارجی ضروری است.
 
-**ماژول**  **urllib.parse**
+## **ماژول** **urllib.parse**
 
 توابعی را برای تجزیه و کدگذاریURL فراهم می کند که برای مدیریتURL ها و نقاط پایانیAPI ضروری است. این به برنامه اجازه می دهد تاURL ها را به درستی برای احراز هویت و بازیابی داده هاconstruct وparse کند.
 
-**ماژول**  **models**
+## **ماژول** **models**
 
 مدل های داده ای را برای ذخیره اطلاعات کاربر و داده های محتوا تعریف می کند.
 
-##  بخش Google Configuration
+# بخش Google Configuration
 
     # Google Configuration
     
@@ -110,17 +110,17 @@ Flaskرا با Flask-Login، یک چارچوب برای مدیریت احراز 
 
 خط 4: مقدارSQLALCHEMY\_DATABASE\_URI را به تنظیمات برنامه اضافه می کنیم. اینURI نشان دهنده محل پایگاه دادهSQLAlchemy است.
 
-**تنظیم مدیریت نشست کاربر**** :**
+# **تنظیم مدیریت نشست کاربر**** :**
 
-# User session management setup
+    # User session management setup
+    
+    # https://flask-login.readthedocs.io/en/latest
+    
+    login\_manager = LoginManager()
+    
+    login\_manager.init\_app(app)
 
-# https://flask-login.readthedocs.io/en/latest
-
-login\_manager = LoginManager()
-
-login\_manager.init\_app(app)
-
-**توضیحات**** :**
+## **توضیحات**** :**
 
 کد بالا برای تنظیم مدیریت نشست کاربر در فلاسک با استفاده از پکیجFlask-Login استفاده می‌شود.
 
@@ -130,79 +130,79 @@ login\_manager.init\_app(app)
 
 پس از اجرای این کد، پکیجFlask-Login آماده است تا برای مدیریت نشست کاربران استفاده شود
 
-**مدیریت ورود کاربر**** :**
+## **مدیریت ورود کاربر**** :**
 
-@login\_manager.unauthorized\_handler
-
-defunauthorized():
-
-    return"You must be logged in to access this content.", 403
-
-# OAuth2 client setup
-
-client = WebApplicationClient(GOOGLE\_CLIENT\_ID)
-
-# Flask-Login helper to retrieve a user from our db
-
-@login\_manager.user\_loader
-
-defload\_user(_user\_id_):
-
-    return User.get(_user\_id_)
+    @login\_manager.unauthorized\_handler
+    
+    defunauthorized():
+    
+        return"You must be logged in to access this content.", 403
+    
+    # OAuth2 client setup
+    
+    client = WebApplicationClient(GOOGLE\_CLIENT\_ID)
+    
+    # Flask-Login helper to retrieve a user from our db
+    
+    @login\_manager.user\_loader
+    
+    defload\_user(_user\_id_):
+    
+        return User.get(_user\_id_)
 
 این کد برای پیکربندی مدیریت ورود کاربر در یک برنامهFlask با استفاده ازOAuth2 وFlask-Login نوشته شده است.
 
-**تابع** **unauthorized()**
+## **تابع** **unauthorized()**
 
 پیام خطای"You must be logged in to access this content." را با کد وضعیتHTTP 403 دسترسی ممنوع برمی‌گرداند. این تابع در صورت عدم ورود کاربر به سیستم فراخوانی می‌شود.
 
-**تابع** **load\_user()**
+## **تابع** **load\_user()**
 
 یک کاربر را از پایگاه داده بازیابی می‌کند. این تابع بهFlask-Login کمک می‌کند تا کاربر را در هنگام ورود به سیستم شناسایی کند.
 
 مسیر های تعریف شده در برنامه routes :
 
-@app.route("/")
+    @app.route("/")
+    
+    defindex():
+    
+        if current\_user.is\_authenticated :
+    
+            contents = json.load(open("contents.json", "r", _encoding_="utf-8"))
+    
+        else :
+    
+            contents = {}
+    
+        return render\_template('index.html' , _user_= current\_user ,_contents_= contents)
 
-defindex():
-
-    if current\_user.is\_authenticated :
-
-        contents = json.load(open("contents.json", "r", _encoding_="utf-8"))
-
-    else :
-
-        contents = {}
-
-    return render\_template('index.html' , _user_= current\_user ,_contents_= contents)
-
-**تابع** **index()**
+## **تابع** **index()**
 
 یک تابع مسیر(route function) درFlask است. این تابع زمانی فراخوانی می‌شود که کاربر به آدرس / درخواست دهد.
 
-**بررسی کد**** :**
+## **بررسی کد**** :**
 
 در ابتدا، تابع بررسی می‌کند که آیا کاربر وارد سیستم شده است یا خیر. اگر کاربر وارد سیستم شده باشد، تابع محتوای فایل contents.json را بارگذاری می‌کند. در غیر این صورت، تابع یک دیکشنری خالی را به عنوان محتوا بازمی‌گرداند.
 
 در نهایت، تابع محتویات را به همراه اطلاعات کاربر به قالب index.html ارسال می‌کند.
 
-@app.route("/profile")
-
-deflogin():
-
-    return render\_template('profile.html' , _user_= current\_user)
+    @app.route("/profile")
+    
+    deflogin():
+    
+        return render\_template('profile.html' , _user_= current\_user)
 
 این کد Flask یک صفحه پروفایل کاربر را نمایش می دهد. این صفحه شامل اطلاعات کاربر مانند نام، نام خانوادگی، آدرس ایمیل و غیره است.
 
-@app.route("/about")
-
-defabout():
-
-    return render\_template('about.html' , _user_= current\_user)
+    @app.route("/about")
+    
+    defabout():
+    
+        return render\_template('about.html' , _user_= current\_user)
 
 این کد یک مسیر(route) برایURL /about در برنامهFlask تعریف می‌کند. این مسیر به تابع about() ارجاع می‌دهد.
 
-**تابع** **about()**
+## **تابع** **about()**
 
 یک قالب(template) HTML با نام about.html را رندر می‌کند. همچنین، مقدار متغیر user را به قالب ارسال می‌کند.
 
@@ -252,105 +252,105 @@ defgoogle\_login():
 
 کد فوق یک تابعFlask است که برای شروع فرآیند ورود به سیستمGoogle طراحی شده است. این تابع ابتدا آدرسURL را برای ورود به سیستمGoogle پیدا می کند و سپس از کتابخانهOAuth2 Client برای ساخت درخواست ورود به سیستم استفاده می کند. درخواست شامل حوزه هایی است که به شما امکان می دهد نمایه کاربر را ازGoogle بازیابی کنید. در نهایت، تابع کاربر را بهURL درخواست هدایت می کند.
 
-@app.route("/google-login/callback")
-
-defcallback():
-
-    # Get authorization code Google sent back to you
-
-    code = request.args.get("code")
-
-    # Find out what URL to hit to get tokens that allow you to ask for
-
-    # things on behalf of a user
-
-    google\_provider\_cfg = get\_google\_provider\_cfg()
-
-    token\_endpoint = google\_provider\_cfg["token\_endpoint"]
-
-    # Prepare and send request to get tokens! Yay tokens!
-
-    token\_url, headers, body = client.prepare\_token\_request(
-
-        token\_endpoint,
-
-        _authorization\_response_=request.url,
-
-        _redirect\_url_=request.base\_url,
-
-        _code_=code,
-
-    )
-
-    token\_response = requests.post(
-
-        token\_url,
-
-        _headers_=headers,
-
-        _data_=body,
-
-        _auth_=(GOOGLE\_CLIENT\_ID, GOOGLE\_CLIENT\_SECRET),
-
-    )
-
-    # Parse the tokens!
-
-    client.parse\_request\_body\_response(json.dumps(token\_response.json()))
-
-    # Now that we have tokens (yay) let's find and hit URL
-
-    # from Google that gives you user's profile information,
-
-    # including their Google Profile Image and Email
-
-    userinfo\_endpoint = google\_provider\_cfg["userinfo\_endpoint"]
-
-    uri, headers, body = client.add\_token(userinfo\_endpoint)
-
-    userinfo\_response = requests.get(uri, _headers_=headers, _data_=body)
-
-    # We want to make sure their email is verified.
-
-    # The user authenticated with Google, authorized our
-
-    # app, and now we've verified their email through Google!
-
-    if userinfo\_response.json().get("email\_verified"):
-
-        unique\_id = userinfo\_response.json()["sub"]
-
-        users\_email = userinfo\_response.json()["email"]
-
-        picture = userinfo\_response.json()["picture"]
-
-        users\_name = userinfo\_response.json()["given\_name"]
-
-    else:
-
-        return"User email not available or not verified by Google.", 400
-
-    # Create a user in our db with the information provided
-
-    # by Google
-
-    user = User.get(unique\_id)
-
-    ifnot user:
-
-        user = User(_id_=unique\_id, _name_=users\_name, _email_=users\_email, _profile\_pic_=picture)
-
-        db.session.add(user)
-
-    db.session.commit()
-
-    # Begin user session by logging the user in
-
-    login\_user(user)
-
-    # Send user back to homepage
-
-    return redirect('/profile')
+    @app.route("/google-login/callback")
+    
+    defcallback():
+    
+        # Get authorization code Google sent back to you
+    
+        code = request.args.get("code")
+    
+        # Find out what URL to hit to get tokens that allow you to ask for
+    
+        # things on behalf of a user
+    
+        google\_provider\_cfg = get\_google\_provider\_cfg()
+    
+        token\_endpoint = google\_provider\_cfg["token\_endpoint"]
+    
+        # Prepare and send request to get tokens! Yay tokens!
+    
+        token\_url, headers, body = client.prepare\_token\_request(
+    
+            token\_endpoint,
+    
+            _authorization\_response_=request.url,
+    
+            _redirect\_url_=request.base\_url,
+    
+            _code_=code,
+    
+        )
+    
+        token\_response = requests.post(
+    
+            token\_url,
+    
+            _headers_=headers,
+    
+            _data_=body,
+    
+            _auth_=(GOOGLE\_CLIENT\_ID, GOOGLE\_CLIENT\_SECRET),
+    
+        )
+    
+        # Parse the tokens!
+    
+        client.parse\_request\_body\_response(json.dumps(token\_response.json()))
+    
+        # Now that we have tokens (yay) let's find and hit URL
+    
+        # from Google that gives you user's profile information,
+    
+        # including their Google Profile Image and Email
+    
+        userinfo\_endpoint = google\_provider\_cfg["userinfo\_endpoint"]
+    
+        uri, headers, body = client.add\_token(userinfo\_endpoint)
+    
+        userinfo\_response = requests.get(uri, _headers_=headers, _data_=body)
+    
+        # We want to make sure their email is verified.
+    
+        # The user authenticated with Google, authorized our
+    
+        # app, and now we've verified their email through Google!
+    
+        if userinfo\_response.json().get("email\_verified"):
+    
+            unique\_id = userinfo\_response.json()["sub"]
+    
+            users\_email = userinfo\_response.json()["email"]
+    
+            picture = userinfo\_response.json()["picture"]
+    
+            users\_name = userinfo\_response.json()["given\_name"]
+    
+        else:
+    
+            return"User email not available or not verified by Google.", 400
+    
+        # Create a user in our db with the information provided
+    
+        # by Google
+    
+        user = User.get(unique\_id)
+    
+        ifnot user:
+    
+            user = User(_id_=unique\_id, _name_=users\_name, _email_=users\_email, _profile\_pic_=picture)
+    
+            db.session.add(user)
+    
+        db.session.commit()
+    
+        # Begin user session by logging the user in
+    
+        login\_user(user)
+    
+        # Send user back to homepage
+    
+        return redirect('/profile')
 
 این کد یک مسیر برایCallback گوگل در برنامهFlask ایجاد می کند. این مسیر پس از موفقیت آمیز بودن احراز هویت کاربر در گوگل فراخوانی می شود. این کد مراحل زیر را دنبال می کند:
 
@@ -362,40 +362,40 @@ defcallback():
 6. شروع جلسه کاربر: کاربر را با استفاده از اطلاعات کاربر ایجاد شده یا موجود در پایگاه داده وارد سیستم می کند.
 7. هدایت کاربر به صفحه پروفایل: کاربر را به صفحه پروفایل هدایت می کند.
 
-@app.route("/logout")
-
-@login\_required
-
-deflogout():
-
-    logout\_user()
-
-    return redirect(url\_for("index"))
-
-defget\_google\_provider\_cfg():
-
-    return requests.get(GOOGLE\_DISCOVERY\_URL).json()
-
-logout()
+    @app.route("/logout")
+    
+    @login\_required
+    
+    deflogout():
+    
+        logout\_user()
+    
+        return redirect(url\_for("index"))
+    
+    defget\_google\_provider\_cfg():
+    
+        return requests.get(GOOGLE\_DISCOVERY\_URL).json()
+    
+    logout()
 
 این تابع با استفاده از تابع logout\_user() موجود در کتابخانهFlask، کاربر را از سیستم خارج می‌کند. سپس کاربر را به صفحه اصلی (صفحه index) هدایت می‌کند.
 
-**تابع** **get\_google\_provider\_cfg()**
+## **تابع** **get\_google\_provider\_cfg()**
 
 این تابع با استفاده از کتابخانه requests، اطلاعات مربوط به ارائه‌دهنده گوگل را ازURL مشخص‌شده(GOOGLE\_DISCOVERY\_URL) دریافت می‌کند. سپس این اطلاعات را به صورت یک شیءJSON برمی‌گرداند.
 
-**تابع** **logout()**
+## **تابع** **logout()**
 
 تابع logout() با استفاده ازdecorator @login\_required اطمینان حاصل می‌کند که فقط کاربرانی که وارد سیستم شده‌اند می‌توانند از آن استفاده کنند.
 
 در داخل تابع، ابتدا تابع logout\_user() را فراخوانی می‌کنیم تا کاربر را از سیستم خارج کنیم. سپس تابع redirect() را فراخوانی می‌کنیم تا کاربر را به صفحه اصلی هدایت کنیم.
 
-**تابع** **get\_google\_provider\_cfg()**
+## **تابع** **get\_google\_provider\_cfg()**
 
 تابع get\_google\_provider\_cfg() با استفاده از متد get() کتابخانه requests، اطلاعات مربوط به ارائه‌دهنده گوگل را ازURL مشخص‌شده(GOOGLE\_DISCOVERY\_URL) دریافت می‌کند.
 
 سپس این اطلاعات را به صورت یک شیءJSON برمی‌گرداند.
 
-**توضیح**** URL GOOGLE\_DISCOVERY\_URL**
+## **توضیح**** URL GOOGLE\_DISCOVERY\_URL**
 
 اینURL یکURL عمومی است که اطلاعات مربوط به ارائه‌دهنده گوگل را در اختیار برنامه‌نویسان قرار می‌دهد. این اطلاعات شامل اطلاعاتی مانند آدرسURL صفحه ورود، آدرسURL صفحه تأیید، و آدرسURL صفحه خطا است.
